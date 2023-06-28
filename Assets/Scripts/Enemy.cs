@@ -47,8 +47,10 @@ public class Enemy : MonoBehaviour
         if(collision.gameObject.GetComponent<Bullet>()){
             collision.gameObject.SetActive(false);
         }
-        // ���װ� ������
-        // Destroy(collision.gameObject);
+        if(collision.gameObject.GetComponent<PlayerMove>()){
+            Destroy(collision.gameObject);
+        }
+        //Destroy(collision.gameObject);
         Destroy(this.gameObject);
 
         //print(collision.gameObject.name);
