@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-// ´©±º°¡°¡ ³ª¿Í °¨ÁöÃæµ¹ µÇ¸é »ó´ë¹æÀ» ÆÄ±«ÇÏ°í ½Í´Ù.
+// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½æµ¹ ï¿½Ç¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ä±ï¿½ï¿½Ï°ï¿½ ï¿½Í´ï¿½.
 public class DestroyZone : MonoBehaviour
 {
     // Start is called before the first frame update
@@ -19,6 +19,11 @@ public class DestroyZone : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Destroy(other.gameObject);
+        if(other.gameObject.name.Contains("Bullet")){
+            other.gameObject.SetActive(false);
+        } else {
+            Destroy(other.gameObject);
+        }
+
     }
 }

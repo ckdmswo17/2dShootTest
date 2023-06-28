@@ -9,37 +9,46 @@ public class Enemy : MonoBehaviour
 {
     public float speed = 5;
     public GameObject target = null;
+    public Vector3 direction;
+
+    public GameObject explosionFactory = null;
     // Start is called before the first frame update
     void Start()
     {
-        // ÅÂ¾î³¯ ¶§ ¹æÇâÀ» Á¤ÇÏ°í½Í´Ù
-        // 30% È®·ü·Î ÇÃ·¹ÀÌ¾î ¹æÇâ, ³ª¸ÓÁö È®·ü·Î ¾Æ·¡·Î Á¤ÇÏ°í ½Í´Ù.
-        // »ì¾Æ°¡¸é¼­ ±× ¹æÇâÀ¸·Î ÀÌµ¿ÇÏ°í ½Í´Ù.
-        int rValue = Random.Range(1,10);
+        // ï¿½Â¾î³¯ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ï°ï¿½ï¿½Í´ï¿½
+        // 30% È®ï¿½ï¿½ï¿½ï¿½ ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ È®ï¿½ï¿½ï¿½ï¿½ ï¿½Æ·ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ï°ï¿½ ï¿½Í´ï¿½.
+        // ï¿½ï¿½Æ°ï¿½ï¿½é¼­ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ìµï¿½ï¿½Ï°ï¿½ ï¿½Í´ï¿½.
+        int rValue = Random.Range(0,10);
+        print(rValue);
         if (rValue <= 3)
         {
             GameObject target = GameObject.Find("Player");
-            Vector3 direction = target.transform.position - this.transform.position;
+            direction = target.transform.position - this.transform.position;
             direction.Normalize();
         } 
         else
         {
-            Vector3 direction = Vector3.down;
+            direction = Vector3.down;
         }
     }
 
     // Update is called once per frame
     void Update()
     {
-        // ¾Æ·¡·Î ÀÌµ¿ÇÏ°í ½Í´Ù. ÃÊ¼Ó 5m/s 
+        // ï¿½Æ·ï¿½ï¿½ï¿½ ï¿½Ìµï¿½ï¿½Ï°ï¿½ ï¿½Í´ï¿½. ï¿½Ê¼ï¿½ 5m/s 
         // P = P0 + vt
-        transform.position += Vector3.down * speed * Time.deltaTime;
+        transform.position += direction * speed * Time.deltaTime;
     }
 
     private void OnCollisionEnter(Collision collision)
     {
-        // ³ÊÁ×°í ³ªÁ×ÀÚ
-        Destroy(collision.gameObject);
+        GameObject explosion = Instantiate(explosionFactory);
+        explosion.transform.position = transform.position;
+        if(collision.gameObject.GetComponent<Bullet>()){
+            collision.gameObject.SetActive(false);
+        }
+        // ï¿½ï¿½ï¿½×°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+        // Destroy(collision.gameObject);
         Destroy(this.gameObject);
 
         //print(collision.gameObject.name);
